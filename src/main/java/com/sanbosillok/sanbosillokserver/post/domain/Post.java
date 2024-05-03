@@ -1,5 +1,6 @@
 package com.sanbosillok.sanbosillokserver.post.domain;
 
+import com.sanbosillok.sanbosillokserver.common.domain.BaseEntity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
@@ -14,7 +15,7 @@ import static lombok.AccessLevel.PROTECTED;
 @Table(name = "post")
 @Getter
 @NoArgsConstructor(access = PROTECTED)
-public class Post {
+public class Post extends BaseEntity {
 
     @Id @GeneratedValue
     private Long id;
