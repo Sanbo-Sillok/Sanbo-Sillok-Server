@@ -1,4 +1,4 @@
-package com.sanbosillok.sanbosillokserver.post.dto;
+package com.sanbosillok.sanbosillokserver.api.post.dto;
 
 import lombok.Data;
 import lombok.NoArgsConstructor;

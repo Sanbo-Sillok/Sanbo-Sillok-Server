@@ -1,4 +1,4 @@
-package com.sanbosillok.sanbosillokserver.member.domain;
+package com.sanbosillok.sanbosillokserver.api.member.domain;
 
 public enum MemberRole {
     ADMIN,

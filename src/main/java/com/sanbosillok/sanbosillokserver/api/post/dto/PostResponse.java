@@ -1,7 +1,7 @@
-package com.sanbosillok.sanbosillokserver.post.dto;
+package com.sanbosillok.sanbosillokserver.api.post.dto;
 
-import com.sanbosillok.sanbosillokserver.post.domain.Post;
-import com.sanbosillok.sanbosillokserver.post.domain.PostStatus;
+import com.sanbosillok.sanbosillokserver.api.post.domain.PostStatus;
+import com.sanbosillok.sanbosillokserver.api.post.domain.Post;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 

@@ -1,4 +1,4 @@
-package com.sanbosillok.sanbosillokserver.post.domain;
+package com.sanbosillok.sanbosillokserver.api.post.domain;
 
 public enum PostStatus {
     ACTIVE,

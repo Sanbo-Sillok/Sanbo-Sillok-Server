@@ -1,6 +1,6 @@
-package com.sanbosillok.sanbosillokserver.post.repository;
+package com.sanbosillok.sanbosillokserver.api.post.repository;
 
-import com.sanbosillok.sanbosillokserver.post.domain.Post;
+import com.sanbosillok.sanbosillokserver.api.post.domain.Post;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;

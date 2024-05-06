@@ -1,4 +1,4 @@
-package com.sanbosillok.sanbosillokserver.member.domain;
+package com.sanbosillok.sanbosillokserver.api.member.domain;
 
 import com.sanbosillok.sanbosillokserver.common.domain.BaseEntity;
 import jakarta.persistence.Entity;
