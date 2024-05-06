@@ -1,12 +1,12 @@
-package com.sanbosillok.sanbosillokserver.post.service;
+package com.sanbosillok.sanbosillokserver.api.post.service;
 
-import com.sanbosillok.sanbosillokserver.post.domain.Post;
-import com.sanbosillok.sanbosillokserver.post.domain.PostStatus;
-import com.sanbosillok.sanbosillokserver.post.dto.PostRequest;
-import com.sanbosillok.sanbosillokserver.post.dto.PostResponse;
-import com.sanbosillok.sanbosillokserver.post.dto.PostTitleResponse;
-import com.sanbosillok.sanbosillokserver.post.dto.PostUpdateRequest;
-import com.sanbosillok.sanbosillokserver.post.repository.PostRepository;
+import com.sanbosillok.sanbosillokserver.api.post.domain.Post;
+import com.sanbosillok.sanbosillokserver.api.post.domain.PostStatus;
+import com.sanbosillok.sanbosillokserver.api.post.dto.PostRequest;
+import com.sanbosillok.sanbosillokserver.api.post.dto.PostResponse;
+import com.sanbosillok.sanbosillokserver.api.post.dto.PostTitleResponse;
+import com.sanbosillok.sanbosillokserver.api.post.dto.PostUpdateRequest;
+import com.sanbosillok.sanbosillokserver.api.post.repository.PostRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
