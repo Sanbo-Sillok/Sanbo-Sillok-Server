@@ -1,4 +1,4 @@
-name : sanbosillokServer
+name : Sanbo-Sillok-Server
 
 on:
   push:
@@ -30,22 +30,22 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
-          name: sanbosillokServer
-          path: build/libs/sanbosillokServer-0.0.1-SNAPSHOT.jar
+          name: Sanbo-Sillok-Server
+          path: build/libs/Sanbo-Sillok-Server-0.0.1-SNAPSHOT.jar
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-    - name: Download build artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: sanbosillokServer
-        path: build/libs/
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: Sanbo-Sillok-Server
+          path: build/libs/
 
-    - name: Deploy to EC2
-      run: |
-        apt-get install sshpass
-        sshpass -p ${{ secrets.EC2_PASSWORD }} scp build/libs/sanbosillokServer-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/sanbosillokServer.jar
-        sshpass -p ${{ secrets.EC2_PASSWORD }} ssh ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar sanbosillokServer-0.0.1-SNAPSHOT.jar &"
+      - name: Deploy to EC2
+        run: |
+          apt-get install sshpass
+          sshpass -p ${{ secrets.EC2_PASSWORD }} scp build/libs/Sanbo-Sillok-Server-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/Sanbo-Sillok-Server.jar
+          sshpass -p ${{ secrets.EC2_PASSWORD }} ssh ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar Sanbo-Sillok-Server-0.0.1-SNAPSHOT.jar &"
