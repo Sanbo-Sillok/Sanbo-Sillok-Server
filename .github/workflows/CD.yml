@@ -3,7 +3,7 @@ name : sanbosillokServer
 on:
   push:
     branches:
-      - dev
+      - develop
 
 jobs:
   CD:
