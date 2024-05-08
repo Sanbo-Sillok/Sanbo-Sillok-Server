@@ -27,9 +27,6 @@ jobs:
         with:
           arguments: build
 
-      - name: log
-        run: ls
-
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
@@ -49,6 +46,6 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          sudo apt-get install sshpass
+          ssh-keygen -R ${{ secrets.EC2_HOST }}
           sshpass -p ${{ secrets.EC2_PASSWORD }} scp build/libs/sanbosillokserver-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/Sanbo-Sillok-Server.jar
           sshpass -p ${{ secrets.EC2_PASSWORD }} ssh ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar sanbosillokserver-0.0.1-SNAPSHOT.jar &"
