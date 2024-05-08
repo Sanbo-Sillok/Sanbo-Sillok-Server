@@ -22,9 +22,6 @@ jobs:
       - name: permission
         run: chmod +wrx gradlew
 
-      - name: build
-        run: gradlew build
-
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2.6.0
         with:
