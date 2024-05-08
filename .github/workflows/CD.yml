@@ -28,13 +28,13 @@ jobs:
           arguments: build
 
       - name: log
-        run: ls build/libs
+        run: ls
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
           name: Sanbo-Sillok-Server
-          path: build/libs/Sanbo-Sillok-Server-0.0.1-SNAPSHOT.jar
+          path: build/libs/sanbosillokserver-0.0.1-SNAPSHOT.jar
 
   deploy:
     needs: build
@@ -50,5 +50,5 @@ jobs:
       - name: Deploy to EC2
         run: |
           apt-get install sshpass
-          sshpass -p ${{ secrets.EC2_PASSWORD }} scp build/libs/Sanbo-Sillok-Server-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/Sanbo-Sillok-Server.jar
-          sshpass -p ${{ secrets.EC2_PASSWORD }} ssh ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar Sanbo-Sillok-Server-0.0.1-SNAPSHOT.jar &"
+          sshpass -p ${{ secrets.EC2_PASSWORD }} scp build/libs/sanbosillokserver-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/Sanbo-Sillok-Server.jar
+          sshpass -p ${{ secrets.EC2_PASSWORD }} ssh ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar sanbosillokserver-0.0.1-SNAPSHOT.jar &"
