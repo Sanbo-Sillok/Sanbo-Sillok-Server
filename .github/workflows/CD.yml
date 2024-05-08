@@ -6,7 +6,7 @@ on:
       - develop
 
 jobs:
-  CD:
+  build:
     runs-on : ubuntu-latest
 
     steps:
