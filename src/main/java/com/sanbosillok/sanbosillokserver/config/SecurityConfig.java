@@ -30,7 +30,7 @@ public class SecurityConfig {
 
             configuration.setAllowedMethods(Collections.singletonList("*"));
             configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
-            configuration.setAllowedOrigins(Collections.singletonList("https://sanbosillok.vercel.app/"));
+            configuration.setAllowedOrigins(Collections.singletonList("https://sanbosillok.vercel.app"));
             configuration.setAllowedHeaders(Collections.singletonList("*"));
             configuration.setAllowCredentials(true);
             configuration.setMaxAge(3600L);
