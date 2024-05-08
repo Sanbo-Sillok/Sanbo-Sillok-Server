@@ -28,7 +28,7 @@ jobs:
           arguments: build
 
       - name: log
-        run: ls /build/libs
+        run: ls build/libs
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
