@@ -46,6 +46,5 @@ jobs:
 
       - name: Deploy to EC2
         run: |
-          ssh-keygen -R ${{ secrets.EC2_HOST }}
-          sshpass -p ${{ secrets.EC2_PASSWORD }} scp build/libs/sanbosillokserver-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/Sanbo-Sillok-Server.jar
-          sshpass -p ${{ secrets.EC2_PASSWORD }} ssh ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar sanbosillokserver-0.0.1-SNAPSHOT.jar &"
+          sshpass -p ${{ secrets.EC2_PASSWORD }} scp build/libs/sanbosillokserver-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/
+          sshpass -p ${{ secrets.EC2_PASSWORD }} ssh -T -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar sanbosillokserver-0.0.1-SNAPSHOT.jar &"
