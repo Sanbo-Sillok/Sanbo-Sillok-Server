@@ -1,12 +1,12 @@
-name : sanbosillokServer
+name : Sanbo-Sillok-Server
 
 on:
   push:
     branches:
-      - dev
+      - develop
 
 jobs:
-  CD:
+  build:
     runs-on : ubuntu-latest
 
     steps:
@@ -22,9 +22,6 @@ jobs:
       - name: permission
         run: chmod +wrx gradlew
 
-      - name: build
-        run: gradlew build
-
       - name: Build with Gradle
         uses: gradle/gradle-build-action@v2.6.0
         with:
@@ -33,22 +30,21 @@ jobs:
       - name: Upload build artifact
         uses: actions/upload-artifact@v2
         with:
-          name: sanbosillokServer
-          path: build/libs/sanbosillokServer-0.0.1-SNAPSHOT.jar
+          name: Sanbo-Sillok-Server
+          path: build/libs/sanbosillokserver-0.0.1-SNAPSHOT.jar
 
   deploy:
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-    - name: Download build artifact
-      uses: actions/download-artifact@v2
-      with:
-        name: sanbosillokServer
-        path: build/libs/
+      - name: Download build artifact
+        uses: actions/download-artifact@v2
+        with:
+          name: Sanbo-Sillok-Server
+          path: build/libs/
 
-    - name: Deploy to EC2
-      run: |
-        apt-get install sshpass
-        sshpass -p ${{ secrets.EC2_PASSWORD }} scp build/libs/sanbosillokServer-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/sanbosillokServer.jar
-        sshpass -p ${{ secrets.EC2_PASSWORD }} ssh ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar sanbosillokServer-0.0.1-SNAPSHOT.jar &"
+      - name: Deploy to EC2
+        run: |
+          sshpass -p ${{ secrets.EC2_PASSWORD }} scp -o StrictHostKeyChecking=no build/libs/sanbosillokserver-0.0.1-SNAPSHOT.jar ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }}:/home/${{ secrets.EC2_USERNAME }}/
+          sshpass -p ${{ secrets.EC2_PASSWORD }} ssh -T -o StrictHostKeyChecking=no ${{ secrets.EC2_USERNAME }}@${{ secrets.EC2_HOST }} "pgrep java | xargs kill -9; nohup java -jar sanbosillokserver-0.0.1-SNAPSHOT.jar &"
