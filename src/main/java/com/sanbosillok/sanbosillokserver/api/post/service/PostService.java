@@ -42,7 +42,12 @@ public class PostService {
 
     public PostResponse getPost(String title) {
         return new PostResponse(postRepository.findByTitle(title)
-                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")));
+                    .orElse(Post.builder()
+                            .title(null)
+                            .contents(null)
+                            .lastModifier(null)
+                            .status(null)
+                            .build()));
     }
 
     public List<PostResponse> getPosts() {
