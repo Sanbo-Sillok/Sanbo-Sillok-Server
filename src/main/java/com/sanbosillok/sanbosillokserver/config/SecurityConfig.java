@@ -16,6 +16,7 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.web.cors.CorsConfiguration;
 
+import java.util.Arrays;
 import java.util.Collections;
 
 @Configuration
@@ -29,8 +30,7 @@ public class SecurityConfig {
             CorsConfiguration configuration = new CorsConfiguration();
 
             configuration.setAllowedMethods(Collections.singletonList("*"));
-            configuration.setAllowedOrigins(Collections.singletonList("http://localhost:3000"));
-            configuration.setAllowedOrigins(Collections.singletonList("https://sanbosillok.vercel.app"));
+            configuration.setAllowedOrigins(Arrays.asList("http://localhost:3000", "https://sanbosillok.vercel.app"));
             configuration.setAllowedHeaders(Collections.singletonList("*"));
             configuration.setAllowCredentials(true);
             configuration.setMaxAge(3600L);
