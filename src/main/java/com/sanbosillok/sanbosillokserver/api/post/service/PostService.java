@@ -41,7 +41,8 @@ public class PostService {
     }
 
     public PostResponse getPost(String title) {
-        return new PostResponse(postRepository.findByTitle(title));
+        return new PostResponse(postRepository.findByTitle(title)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")));
     }
 
     public List<PostResponse> getPosts() {
@@ -52,12 +53,14 @@ public class PostService {
 
     @Transactional
     public void update(String title, PostUpdateRequest postUpdateRequest, String username) {
-        Post updatePost = postRepository.findByTitle(title);
+        Post updatePost = postRepository.findByTitle(title)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
         updatePost.update(postUpdateRequest.getContents(), username);
     }
 
     @Transactional
     public void delete(String title) {
-        postRepository.delete(postRepository.findByTitle(title));
+        postRepository.delete(postRepository.findByTitle(title)
+                .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다.")));
     }
 }
