@@ -26,7 +26,7 @@ public class PostController {
     }
 
     @GetMapping("")
-    public List<PostResponse> getPosts() {
+    public List<PostTitleResponse> getPosts() {
         return postService.getPosts();
     }
 
