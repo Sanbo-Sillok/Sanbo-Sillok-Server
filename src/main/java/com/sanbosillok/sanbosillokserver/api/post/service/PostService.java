@@ -43,10 +43,6 @@ public class PostService {
     public PostResponse getPost(String title) {
         return new PostResponse(postRepository.findByTitle(title)
                     .orElse(Post.builder()
-                            .title(null)
-                            .contents(null)
-                            .lastModifier(null)
-                            .status(null)
                             .build()));
     }
 
