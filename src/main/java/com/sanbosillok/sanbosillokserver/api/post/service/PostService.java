@@ -46,9 +46,9 @@ public class PostService {
                             .build()));
     }
 
-    public List<PostResponse> getPosts() {
+    public List<PostTitleResponse> getPosts() {
         return postRepository.findAll().stream()
-                .map(PostResponse::new)
+                .map(PostTitleResponse::new)
                 .collect(Collectors.toList());
     }
 
