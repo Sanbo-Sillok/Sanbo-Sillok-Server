@@ -1,10 +1,7 @@
 package com.sanbosillok.sanbosillokserver.api.post.domain;
 
 import com.sanbosillok.sanbosillokserver.common.domain.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -22,6 +19,7 @@ public class Post extends BaseEntity {
 
     private String title;
 
+    @Column(columnDefinition = "TEXT")
     private String content;
 
     private String lastModifier;
