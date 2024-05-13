@@ -27,7 +27,7 @@ public class PostService {
 
             Post post = Post.builder()
                     .title(postRequest.getTitle())
-                    .contents(postRequest.getContents())
+                    .content(postRequest.getContent())
                     .lastModifier(username)
                     .status(PostStatus.ACTIVE)
                     .build();
@@ -56,7 +56,7 @@ public class PostService {
     public void update(String title, PostUpdateRequest postUpdateRequest, String username) {
         Post updatePost = postRepository.findByTitle(title)
                 .orElseThrow(() -> new IllegalArgumentException("해당 게시글이 존재하지 않습니다."));
-        updatePost.update(postUpdateRequest.getContents(), username);
+        updatePost.update(postUpdateRequest.getContent(), username);
     }
 
     @Transactional

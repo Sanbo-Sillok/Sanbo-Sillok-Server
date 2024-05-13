@@ -22,22 +22,22 @@ public class Post extends BaseEntity {
 
     private String title;
 
-    private String contents;
+    private String content;
 
     private String lastModifier;
 
     private PostStatus status;
 
     @Builder
-    public Post(String title, String contents, String lastModifier, PostStatus status) {
+    public Post(String title, String content, String lastModifier, PostStatus status) {
         this.title = title;
-        this.contents = contents;
+        this.content = content;
         this.lastModifier = lastModifier;
         this.status = status;
     }
 
-    public void update(String contents, String lastModifier) {
-        this.contents = contents;
+    public void update(String content, String lastModifier) {
+        this.content = content;
         this.lastModifier = lastModifier;
     }
 

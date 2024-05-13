@@ -13,7 +13,7 @@ public class PostResponse {
 
     private Long id;
     private String title;
-    private String contents;
+    private String content;
     private String lastModifier;
     private PostStatus status;
     private LocalDateTime updatedAt;
@@ -22,7 +22,7 @@ public class PostResponse {
     public PostResponse(Post post) {
         id = post.getId();
         title = post.getTitle();
-        contents = post.getContents();
+        content = post.getContent();
         lastModifier = post.getLastModifier();
         status = post.getStatus();
         updatedAt = post.getUpdatedAt();
