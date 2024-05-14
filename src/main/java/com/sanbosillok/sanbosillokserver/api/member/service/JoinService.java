@@ -1,5 +1,7 @@
 package com.sanbosillok.sanbosillokserver.api.member.service;
 
+import com.sanbosillok.sanbosillokserver.api.image.dto.ImagePathResponse;
+import com.sanbosillok.sanbosillokserver.api.image.service.ImageService;
 import com.sanbosillok.sanbosillokserver.api.member.domain.Member;
 import com.sanbosillok.sanbosillokserver.api.member.domain.MemberRole;
 import com.sanbosillok.sanbosillokserver.api.member.dto.CheckUserNameResponse;
@@ -13,15 +15,20 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class JoinService {
     private final MemberRepository memberRepository;
+    private final ImageService imageService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
+    private static final String JOIN_IMAGE_PATH = "/home/ubuntu/join/";
 
     public void join(JoinRequest joinRequest) {
         if (!memberRepository.existsByUsername(joinRequest.getUsername())) {
+
+            String studentIdImagePath = imageService.upload(JOIN_IMAGE_PATH, joinRequest.getStudentIdImage()).getImagePath();
 
             Member member = Member.builder()
                     .username(joinRequest.getUsername())
                     .password(bCryptPasswordEncoder.encode(joinRequest.getPassword()))
                     .role(MemberRole.INACTIVE)
+                    .studentIdImagePath(studentIdImagePath)
                     .build();
 
             memberRepository.save(member);
