@@ -15,7 +15,7 @@ import java.util.UUID;
 @RequiredArgsConstructor
 public class ImageService {
 
-    public static final String BASE_PATH = "/home/image/";
+    public static final String BASE_PATH = "/home/ubuntu/image/";
 
     public ImagePathResponse upload(MultipartFile file) {
         String uuid = UUID.randomUUID().toString();
