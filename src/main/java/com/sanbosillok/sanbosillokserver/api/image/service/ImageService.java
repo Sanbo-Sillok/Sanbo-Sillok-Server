@@ -6,9 +6,10 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
-import java.io.FileInputStream;
 import java.io.IOException;
-import java.io.InputStream;
+import java.nio.file.Files;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.UUID;
 
 @Service
@@ -34,11 +35,11 @@ public class ImageService {
     }
 
     public byte[] getImage(String fileName) {
-        String path = BASE_PATH + fileName;
+        Path imagePath = Paths.get(BASE_PATH, fileName);
 
-        try (InputStream inputStream = new FileInputStream(path)) {
-            return inputStream.readAllBytes();
-        } catch (IOException e) {
+        try {
+            return Files.readAllBytes(imagePath);
+        }catch (IOException e) {
             throw new IllegalArgumentException("해당 파일이 존재하지 않습니다.");
         }
     }
