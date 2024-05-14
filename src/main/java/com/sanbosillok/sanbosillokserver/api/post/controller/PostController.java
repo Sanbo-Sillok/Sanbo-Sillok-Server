@@ -1,10 +1,8 @@
 package com.sanbosillok.sanbosillokserver.api.post.controller;
 
+import com.sanbosillok.sanbosillokserver.api.image.dto.ImagePathResponse;
 import com.sanbosillok.sanbosillokserver.api.image.service.ImageService;
-import com.sanbosillok.sanbosillokserver.api.post.dto.PostRequest;
-import com.sanbosillok.sanbosillokserver.api.post.dto.PostResponse;
-import com.sanbosillok.sanbosillokserver.api.post.dto.PostTitleResponse;
-import com.sanbosillok.sanbosillokserver.api.post.dto.PostUpdateRequest;
+import com.sanbosillok.sanbosillokserver.api.post.dto.*;
 import com.sanbosillok.sanbosillokserver.api.post.service.PostService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -57,7 +55,7 @@ public class PostController {
     }
 
     @PostMapping("/upload")
-    public void uploadPostImage(@RequestParam MultipartFile file) {
-        imageService.upload(POST_IMAGE_PATH, file);
+    public ImagePathResponse uploadPostImage(@RequestParam MultipartFile file) {
+        return imageService.upload(POST_IMAGE_PATH, file);
     }
 }
