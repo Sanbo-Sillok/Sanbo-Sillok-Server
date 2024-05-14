@@ -19,7 +19,6 @@ public class PostController {
 
     private final PostService postService;
     private final ImageService imageService;
-    private static final String POST_IMAGE_PATH = "/home/ubuntu/post/";
 
     @PostMapping("")
     public void createPost(@RequestBody @Valid PostRequest postRequest) {
@@ -56,6 +55,6 @@ public class PostController {
 
     @PostMapping("/upload")
     public ImagePathResponse uploadPostImage(@RequestParam MultipartFile file) {
-        return imageService.upload(POST_IMAGE_PATH, file);
+        return imageService.upload(file);
     }
 }

@@ -17,12 +17,11 @@ public class JoinService {
     private final MemberRepository memberRepository;
     private final ImageService imageService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
-    private static final String JOIN_IMAGE_PATH = "/home/ubuntu/join/";
 
     public void join(JoinRequest joinRequest) {
         if (!memberRepository.existsByUsername(joinRequest.getUsername())) {
 
-            String studentIdImagePath = imageService.upload(JOIN_IMAGE_PATH, joinRequest.getStudentIdImage()).getImagePath();
+            String studentIdImagePath = imageService.upload(joinRequest.getStudentIdImage()).getImagePath();
 
             Member member = Member.builder()
                     .username(joinRequest.getUsername())
