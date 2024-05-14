@@ -3,7 +3,6 @@ package com.sanbosillok.sanbosillokserver.api.member.controller;
 import com.sanbosillok.sanbosillokserver.api.member.dto.CheckUserNameResponse;
 import com.sanbosillok.sanbosillokserver.api.member.dto.JoinRequest;
 import com.sanbosillok.sanbosillokserver.api.member.service.JoinService;
-import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -14,7 +13,7 @@ public class JoinController {
     private final JoinService joinService;
 
     @PostMapping("/signup")
-    public void join(@RequestBody @Valid JoinRequest joinRequest) {
+    public void join(@ModelAttribute JoinRequest joinRequest) {
         joinService.join(joinRequest);
     }
 

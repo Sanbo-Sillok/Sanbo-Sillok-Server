@@ -24,11 +24,14 @@ public class Member extends BaseEntity {
 
     private MemberRole role;
 
+    private String studentIdImagePath;
+
     @Builder
-    public Member(String username, String password, MemberRole role) {
+    public Member(String username, String password, MemberRole role, String studentIdImagePath) {
         this.username = username;
         this.password = password;
         this.role = role;
+        this.studentIdImagePath = studentIdImagePath;
     }
 
     public void updateRole(MemberRole role) {
