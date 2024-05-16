@@ -3,12 +3,11 @@ name: feature issue template
 about: to feature issue
 title: "[Feature] "
 labels: "✨feature"
-assignees: ''
+assignees: 'yangchef1'
 
 ---
 
 ### ✏️Describe
-
 
 
 ### 🚀Task
