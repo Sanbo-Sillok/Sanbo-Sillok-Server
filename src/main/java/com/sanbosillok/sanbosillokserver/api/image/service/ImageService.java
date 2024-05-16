@@ -28,7 +28,7 @@ public class ImageService {
 
         try {
             file.transferTo(saveFile);
-            return new ImagePathResponse(BASE_PATH + uuid + fileExtension);
+            return new ImagePathResponse(uuid + fileExtension);
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
