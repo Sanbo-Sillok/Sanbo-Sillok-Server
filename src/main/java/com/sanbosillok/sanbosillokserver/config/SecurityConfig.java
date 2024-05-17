@@ -1,5 +1,8 @@
 package com.sanbosillok.sanbosillokserver.config;
 
+import com.sanbosillok.sanbosillokserver.config.jwt.JwtAuthenticationFilter;
+import com.sanbosillok.sanbosillokserver.config.jwt.JwtTokenProvider;
+import com.sanbosillok.sanbosillokserver.config.jwt.LoginFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -24,6 +27,9 @@ import java.util.Collections;
 @RequiredArgsConstructor
 public class SecurityConfig {
 
+    private final AuthenticationConfiguration authenticationConfiguration;
+    private final JwtTokenProvider jwtTokenProvider;
+
     private static void corsAllow(CorsConfigurer<HttpSecurity> corsCustomizer) {
         corsCustomizer.configurationSource(request -> {
 
@@ -47,6 +53,11 @@ public class SecurityConfig {
     }
 
     @Bean
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration configuration) throws Exception {
+        return configuration.getAuthenticationManager();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
 
@@ -61,6 +72,18 @@ public class SecurityConfig {
 
                 //http basic 인증 방식 disable
                 .httpBasic(AbstractHttpConfigurer::disable)
+
+                //경로별 인가 작업
+                .authorizeHttpRequests((auth) -> auth
+                        .requestMatchers("/signup", "/login", "/checkUserName/{username}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/post", "/post/{title}", "/post/random").hasAnyRole("GUEST", "ACTIVE", "ADMIN")
+                        .requestMatchers("/post", "/post/{title}", "/post/upload").hasAnyRole("ACTIVE", "ADMIN")
+                        .requestMatchers("/admin", "/admin/{id}").hasRole("ADMIN")
+                        .anyRequest().authenticated())
+
+                // 필터 등록
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), LoginFilter.class)
 
                 //세션 설정
                 .sessionManagement((session) -> session
