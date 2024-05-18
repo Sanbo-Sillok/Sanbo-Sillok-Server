@@ -1,5 +1,6 @@
 package com.sanbosillok.sanbosillokserver.config;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sanbosillok.sanbosillokserver.config.jwt.JwtAuthenticationFilter;
 import com.sanbosillok.sanbosillokserver.config.jwt.JwtTokenProvider;
 import com.sanbosillok.sanbosillokserver.config.jwt.LoginFilter;
@@ -29,6 +30,7 @@ public class SecurityConfig {
 
     private final AuthenticationConfiguration authenticationConfiguration;
     private final JwtTokenProvider jwtTokenProvider;
+    private final ObjectMapper objectMapper;
 
     private static void corsAllow(CorsConfigurer<HttpSecurity> corsCustomizer) {
         corsCustomizer.configurationSource(request -> {
@@ -82,7 +84,7 @@ public class SecurityConfig {
                         .anyRequest().authenticated())
 
                 // 필터 등록
-                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtTokenProvider), UsernamePasswordAuthenticationFilter.class)
+                .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtTokenProvider, objectMapper), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), LoginFilter.class)
 
                 //세션 설정
