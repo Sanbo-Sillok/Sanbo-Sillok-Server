@@ -11,6 +11,8 @@ import java.time.LocalDateTime;
 @NoArgsConstructor
 public class PostResponse {
 
+    private static final String MASK_CHAR = "*****";
+
     private Long id;
     private String title;
     private String content;
@@ -23,7 +25,7 @@ public class PostResponse {
         id = post.getId();
         title = post.getTitle();
         content = post.getContent();
-        lastModifier = post.getLastModifier();
+        lastModifier = post.getLastModifier().substring(0, 3) + MASK_CHAR;
         status = post.getStatus();
         updatedAt = post.getUpdatedAt();
         isExist = (id != null);
