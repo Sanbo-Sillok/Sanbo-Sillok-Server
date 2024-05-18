@@ -26,14 +26,14 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
         if (authorization == null || !authorization.startsWith("Bearer ")) {
             filterChain.doFilter(request, response);
-            throw new IllegalArgumentException("잘못된 토큰 형식입니다.");
+            return;
         }
 
         String token = authorization.split(" ")[1];
 
         if (jwtTokenProvider.isExpired(token)) {
             filterChain.doFilter(request, response);
-            throw new IllegalArgumentException("토큰이 만료되었습니다.");
+            return;
         }
 
         String username = jwtTokenProvider.getUsername(token);
