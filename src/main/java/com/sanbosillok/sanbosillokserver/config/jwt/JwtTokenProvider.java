@@ -28,7 +28,7 @@ public class JwtTokenProvider {
 
     public String getRole(String token) {
 
-        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class);
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class).split("_")[1];
     }
 
     public Boolean isExpired(String token) {
