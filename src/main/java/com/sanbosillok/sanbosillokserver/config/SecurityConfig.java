@@ -78,10 +78,9 @@ public class SecurityConfig {
                 //경로별 인가 작업
                 .authorizeHttpRequests((auth) -> auth
                         .requestMatchers("/signup", "/login", "/checkUserName/{username}").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/post", "/post/{title}", "/post/random").hasAnyRole("GUEST", "ACTIVE", "ADMIN")
-                        .requestMatchers("/post", "/post/{title}", "/post/upload").hasAnyRole("ACTIVE", "ADMIN")
-                        .requestMatchers("/admin", "/admin/{id}").hasRole("ADMIN")
-                        .anyRequest().authenticated())
+                        .requestMatchers(HttpMethod.GET, "/post",  "/post/random", "/post/{title}", "/image/{fileName}").hasAnyRole("GUEST", "ACTIVE", "ADMIN")
+                        .requestMatchers("/post", "/post/upload", "/post/{title}").hasAnyRole("ACTIVE", "ADMIN")
+                        .requestMatchers("/admin", "/admin/{id}").hasRole("ADMIN"))
 
                 // 필터 등록
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtTokenProvider, objectMapper), UsernamePasswordAuthenticationFilter.class)
