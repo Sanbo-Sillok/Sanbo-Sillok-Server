@@ -77,8 +77,8 @@ public class SecurityConfig {
 
                 //경로별 인가 작업
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/signup", "/login", "/checkUserName/{username}").permitAll()
-                        .requestMatchers(HttpMethod.GET, "/post",  "/post/random", "/post/{title}", "/image/{fileName}").hasAnyRole("GUEST", "ACTIVE", "ADMIN")
+                        .requestMatchers("/signup", "/login", "/checkUserName/{username}", "/image/{fileName}").permitAll()
+                        .requestMatchers(HttpMethod.GET, "/post",  "/post/random", "/post/{title}").hasAnyRole("GUEST", "ACTIVE", "ADMIN")
                         .requestMatchers("/post", "/post/upload", "/post/{title}").hasAnyRole("ACTIVE", "ADMIN")
                         .requestMatchers("/admin", "/admin/{id}").hasRole("ADMIN"))
 
