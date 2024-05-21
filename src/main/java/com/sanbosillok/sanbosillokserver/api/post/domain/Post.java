@@ -34,6 +34,10 @@ public class Post extends BaseEntity {
         this.status = status;
     }
 
+    public String getLastModifier() {
+        return lastModifier != null ? lastModifier : "Unknown";
+    }
+
     public void update(String content, String lastModifier) {
         this.content = content;
         this.lastModifier = lastModifier;
