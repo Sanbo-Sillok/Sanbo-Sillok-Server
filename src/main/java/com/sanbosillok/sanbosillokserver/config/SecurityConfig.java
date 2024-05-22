@@ -18,6 +18,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
+import org.springframework.security.web.authentication.logout.HttpStatusReturningLogoutSuccessHandler;
 import org.springframework.web.cors.CorsConfiguration;
 
 import java.util.Arrays;
@@ -74,6 +75,10 @@ public class SecurityConfig {
 
                 //http basic 인증 방식 disable
                 .httpBasic(AbstractHttpConfigurer::disable)
+
+                // logout
+                .logout((logout) -> logout
+                        .logoutSuccessHandler(new HttpStatusReturningLogoutSuccessHandler()))
 
                 //경로별 인가 작업
                 .authorizeHttpRequests((auth) -> auth
