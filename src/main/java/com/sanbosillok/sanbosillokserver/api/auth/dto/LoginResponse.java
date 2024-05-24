@@ -1,13 +1,14 @@
 package com.sanbosillok.sanbosillokserver.api.auth.dto;
 
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
-public class TokenResponse {
+public class LoginResponse {
     private String accessToken;
+    private String role;
 
-    public TokenResponse(String accessToken) {
+    public LoginResponse(String accessToken, String role) {
         this.accessToken = accessToken;
+        this.role = role;
     }
 }

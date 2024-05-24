@@ -3,7 +3,7 @@ package com.sanbosillok.sanbosillokserver.config.jwt;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sanbosillok.sanbosillokserver.api.auth.dto.CustomUserDetails;
-import com.sanbosillok.sanbosillokserver.api.auth.dto.TokenResponse;
+import com.sanbosillok.sanbosillokserver.api.auth.dto.LoginResponse;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -57,7 +57,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String token = jwtTokenProvider.createJwt(username, role);
 
         response.setContentType("application/json");
-        response.getWriter().print(objectMapper.writeValueAsString(new TokenResponse(token)));
+        response.getWriter().print(objectMapper.writeValueAsString(new LoginResponse(token, role)));
     }
 
     @Override
