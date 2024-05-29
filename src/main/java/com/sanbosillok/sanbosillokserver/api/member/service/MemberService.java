@@ -24,6 +24,7 @@ public class MemberService {
                 .collect(Collectors.toList());
     }
 
+    @Transactional
     public void activateMember(Long id) {
         Member member = memberRepository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("해당 회원 가입 신청이 존재하지 않습니다."));
