@@ -10,14 +10,17 @@ import com.sanbosillok.sanbosillokserver.api.member.repository.MemberRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
+@Transactional(readOnly = true)
 public class JoinService {
     private final MemberRepository memberRepository;
     private final ImageService imageService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;
 
+    @Transactional
     public void join(JoinRequest joinRequest) {
         if (!memberRepository.existsByUsername(joinRequest.getUsername())) {
 
