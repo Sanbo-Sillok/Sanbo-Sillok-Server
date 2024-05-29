@@ -1,5 +1,6 @@
 package com.sanbosillok.sanbosillokserver.api.member.service;
 
+import com.sanbosillok.sanbosillokserver.api.member.domain.Member;
 import com.sanbosillok.sanbosillokserver.api.member.domain.MemberRole;
 import com.sanbosillok.sanbosillokserver.api.member.dto.MemberResponse;
 import com.sanbosillok.sanbosillokserver.api.member.repository.MemberRepository;
@@ -24,8 +25,10 @@ public class MemberService {
     }
 
     public void activateMember(Long id) {
-        memberRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("해당 회원 가입 신청이 존재하지 않습니다."))
-                .updateRole(MemberRole.ACTIVE);
+        Member member = memberRepository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("해당 회원 가입 신청이 존재하지 않습니다."));
+
+        member.updateRole(MemberRole.ACTIVE);
+        memberRepository.save(member);
     }
 }
