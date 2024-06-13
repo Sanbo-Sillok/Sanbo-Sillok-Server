@@ -14,6 +14,9 @@ public class JwtTokenProvider {
 
     private final SecretKey secretKey;
 
+    @Value("${jwt.refresh-token.expire-length}")
+    private Long refreshTokenExpireLength;
+
     @Value("${jwt.access-token.expire-length}")
     private Long accessTokenExpireLength;
 
@@ -31,13 +34,16 @@ public class JwtTokenProvider {
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("role", String.class).split("_")[1];
     }
 
+    public Long getUserId(String token) {
+        return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().get("id", Long.class);
+    }
+
     public Boolean isExpired(String token) {
 
         return Jwts.parser().verifyWith(secretKey).build().parseSignedClaims(token).getPayload().getExpiration().before(new Date());
     }
 
-    public String createJwt(String username, String role) {
-
+    public String createAccessToken(String username, String role) {
         return Jwts.builder()
                 .claim("username", username)
                 .claim("role", role)
@@ -46,4 +52,14 @@ public class JwtTokenProvider {
                 .signWith(secretKey)
                 .compact();
     }
+
+    public String createRefreshToken(Long id) {
+        return Jwts.builder()
+                .claim("id", id)
+                .issuedAt(new Date(System.currentTimeMillis()))
+                .expiration(new Date(System.currentTimeMillis() + refreshTokenExpireLength))
+                .signWith(secretKey)
+                .compact();
+    }
+
 }

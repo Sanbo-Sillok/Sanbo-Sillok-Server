@@ -46,6 +46,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
     protected void successfulAuthentication(HttpServletRequest request, HttpServletResponse response, FilterChain chain, Authentication authentication) throws IOException {
         CustomUserDetails customUserDetails = (CustomUserDetails) authentication.getPrincipal();
 
+        Long id = customUserDetails.getId();
         String username = customUserDetails.getUsername();
 
         Collection<? extends GrantedAuthority> authorities = authentication.getAuthorities();
@@ -54,10 +55,11 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
 
         String role = auth.getAuthority();
 
-        String token = jwtTokenProvider.createJwt(username, role);
+        String refreshToken = jwtTokenProvider.createRefreshToken(id);
+        String accessToken = jwtTokenProvider.createAccessToken(username, role);
 
         response.setContentType("application/json");
-        response.getWriter().print(objectMapper.writeValueAsString(new LoginResponse(token, role)));
+        response.getWriter().print(objectMapper.writeValueAsString(new LoginResponse(refreshToken, accessToken, role)));
     }
 
     @Override
