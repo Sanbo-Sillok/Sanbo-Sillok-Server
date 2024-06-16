@@ -1,9 +1,7 @@
 package com.sanbosillok.sanbosillokserver.config;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sanbosillok.sanbosillokserver.config.jwt.JwtAuthenticationFilter;
-import com.sanbosillok.sanbosillokserver.config.jwt.JwtTokenProvider;
-import com.sanbosillok.sanbosillokserver.config.jwt.LoginFilter;
+import com.sanbosillok.sanbosillokserver.config.jwt.*;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -61,6 +59,16 @@ public class SecurityConfig {
     }
 
     @Bean
+    public JwtAuthenticationEntryPoint jwtAuthenticationEntryPoint() {
+        return new JwtAuthenticationEntryPoint();
+    }
+
+    @Bean
+    public JwtAccessDeniedHandler jwtAccessDeniedHandler() {
+        return new JwtAccessDeniedHandler();
+    }
+
+    @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
 
@@ -82,7 +90,7 @@ public class SecurityConfig {
 
                 //경로별 인가 작업
                 .authorizeHttpRequests((auth) -> auth
-                        .requestMatchers("/signup", "/login", "/checkUserName/{username}", "/image/{fileName}").permitAll()
+                        .requestMatchers("/signup", "/login", "/checkUserName/{username}", "/image/{fileName}", "/token/refresh").permitAll()
                         .requestMatchers(HttpMethod.GET, "/post",  "/post/random", "/post/{title}").hasAnyRole("GUEST", "ACTIVE", "ADMIN")
                         .requestMatchers("/post", "/post/upload", "/post/{title}").hasAnyRole("ACTIVE", "ADMIN")
                         .requestMatchers("/admin", "/admin/{id}").hasRole("ADMIN"))
@@ -90,6 +98,13 @@ public class SecurityConfig {
                 // 필터 등록
                 .addFilterAt(new LoginFilter(authenticationManager(authenticationConfiguration), jwtTokenProvider, objectMapper), UsernamePasswordAuthenticationFilter.class)
                 .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), LoginFilter.class)
+
+                // 예외 처리
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling
+                                .authenticationEntryPoint(jwtAuthenticationEntryPoint())
+                                .accessDeniedHandler(jwtAccessDeniedHandler())
+                )
 
                 //세션 설정
                 .sessionManagement((session) -> session
