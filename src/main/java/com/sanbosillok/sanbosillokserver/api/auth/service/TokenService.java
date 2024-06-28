@@ -1,6 +1,6 @@
 package com.sanbosillok.sanbosillokserver.api.auth.service;
 
-import com.sanbosillok.sanbosillokserver.api.auth.dto.AccessTokenResponse;
+import com.sanbosillok.sanbosillokserver.api.auth.dto.ReissueTokenResponse;
 import com.sanbosillok.sanbosillokserver.api.member.domain.Member;
 import com.sanbosillok.sanbosillokserver.api.member.repository.MemberRepository;
 import com.sanbosillok.sanbosillokserver.config.jwt.JwtTokenProvider;
@@ -13,7 +13,7 @@ public class TokenService {
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberRepository memberRepository;
 
-    public AccessTokenResponse reIssueAccessToken(String refreshToken) {
+    public ReissueTokenResponse reIssueAccessToken(String refreshToken) {
 
         if (refreshToken == null) {
             throw new IllegalArgumentException("토큰이 비어있습니다.");
@@ -28,7 +28,8 @@ public class TokenService {
 
         String username = member.getUsername();
         String role = member.getRole().toString();
+        Long id = member.getId();
 
-        return new AccessTokenResponse(jwtTokenProvider.createAccessToken(username, role));
+        return new ReissueTokenResponse(jwtTokenProvider.createAccessToken(username, role), jwtTokenProvider.createRefreshToken(id));
     }
 }
