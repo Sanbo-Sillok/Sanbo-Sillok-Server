@@ -27,7 +27,7 @@ public class TokenService {
         Member member = memberRepository.findById(userId).orElseThrow(() -> new IllegalArgumentException("잘못된 token 형식입니다."));
 
         String username = member.getUsername();
-        String role = member.getRole().toString();
+        String role = "ROLE_" + member.getRole().toString();
         Long id = member.getId();
 
         return new ReissueTokenResponse(jwtTokenProvider.createAccessToken(username, role), jwtTokenProvider.createRefreshToken(id));
