@@ -1,7 +1,7 @@
 package com.sanbosillok.sanbosillokserver.api.auth.controller;
 
 import com.sanbosillok.sanbosillokserver.api.auth.dto.RefreshTokenRequest;
-import com.sanbosillok.sanbosillokserver.api.auth.dto.ReissueTokenResponse;
+import com.sanbosillok.sanbosillokserver.api.auth.dto.TokenResponse;
 import com.sanbosillok.sanbosillokserver.api.auth.service.TokenService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +14,7 @@ public class TokenController {
     private final TokenService tokenService;
 
     @PostMapping("/refresh")
-    public ReissueTokenResponse getNewToken(@RequestBody @Valid RefreshTokenRequest refreshTokenRequest) {
+    public TokenResponse getNewToken(@RequestBody @Valid RefreshTokenRequest refreshTokenRequest) {
         return tokenService.reIssueAccessToken(refreshTokenRequest.getRefreshToken());
     }
 }
