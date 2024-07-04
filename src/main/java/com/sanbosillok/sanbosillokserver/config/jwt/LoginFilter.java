@@ -59,7 +59,7 @@ public class LoginFilter extends UsernamePasswordAuthenticationFilter {
         String accessToken = jwtTokenProvider.createAccessToken(username, role);
 
         response.setContentType("application/json");
-        response.getWriter().print(objectMapper.writeValueAsString(new TokenResponse(refreshToken, accessToken, role)));
+        response.getWriter().print(objectMapper.writeValueAsString(new TokenResponse(accessToken, refreshToken, role)));
     }
 
     @Override

@@ -13,7 +13,7 @@ public class TokenService {
     private final JwtTokenProvider jwtTokenProvider;
     private final MemberRepository memberRepository;
 
-    public TokenResponse reIssueAccessToken(String refreshToken) {
+    public TokenResponse reIssueToken(String refreshToken) {
 
         if (refreshToken == null) {
             throw new IllegalArgumentException("토큰이 비어있습니다.");
